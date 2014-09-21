@@ -78,17 +78,47 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
                 $facades = $app['config']->get('laravel-twigbridge::facades', array());
                 $functions = $app['config']->get('laravel-twigbridge::functions', array());
                 $filters = $app['config']->get('laravel-twigbridge::filters', array());
-                
-                $twig->addExtension(new AuthExtension($app['auth']));
-                $twig->addExtension(new ConfigExtension($app['config']));
-                $twig->addExtension(new FacadeExtension($facades));
-                $twig->addExtension(new FormExtension($app['form']));
-                $twig->addExtension(new HelperExtension($functions, $filters, $defaultOptions));
-                $twig->addExtension(new HtmlExtension($app['html']));
-                $twig->addExtension(new UrlExtension($app['url']));
-                $twig->addExtension(new SessionExtension($app['session']));
-                $twig->addExtension(new StringExtension());
-                $twig->addExtension(new TranslatorExtension($app['translator']));
+                $extensions = $app['config']->get('laravel-twigbridge::extensions', array());
+
+                if (in_array('AuthExtension', $extensions)) {
+                    $twig->addExtension(new AuthExtension($app['auth']));
+                }
+
+                if (in_array('ConfigExtension', $extensions)) {
+                    $twig->addExtension(new ConfigExtension($app['config']));
+                }
+
+                if (in_array('FacadeExtension', $extensions)) {
+                    $twig->addExtension(new FacadeExtension($facades));
+                }
+
+                if (in_array('FormExtension', $extensions)) {
+                    $twig->addExtension(new FormExtension($app['form']));
+                }
+
+                if (in_array('HelperExtension', $extensions)) {
+                    $twig->addExtension(new HelperExtension($functions, $filters, $defaultOptions));
+                }
+
+                if (in_array('HtmlExtension', $extensions)) {
+                    $twig->addExtension(new HtmlExtension($app['html']));
+                }
+
+                if (in_array('UrlExtension', $extensions)) {
+                    $twig->addExtension(new UrlExtension($app['url']));
+                }
+
+                if (in_array('SessionExtension', $extensions)) {
+                    $twig->addExtension(new SessionExtension($app['session']));
+                }
+
+                if (in_array('StringExtension', $extensions)) {
+                    $twig->addExtension(new StringExtension());
+                }
+
+                if (in_array('TranslatorExtension', $extensions)) {
+                    $twig->addExtension(new TranslatorExtension($app['translator']));
+                }
 
                 return $twig;
             });

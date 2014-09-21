@@ -81,6 +81,19 @@ return array(
 
   'facades' => array(
 
+  ),
+
+  'extensions' => array(
+    'AuthExtension',
+    'ConfigExtension',
+    'FacadeExtension',
+    'FormExtension',
+    'HelperExtension',
+    'HtmlExtension',
+    'UrlExtension',
+    'SessionExtension',
+    'StringExtension',
+    'TranslatorExtension'
   )
 
 );
